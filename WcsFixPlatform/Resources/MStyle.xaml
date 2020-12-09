@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:Double x:Key="MSideMenuFS">20</sys:Double>
+    <sys:Double x:Key="MSideMenuItemFS">18</sys:Double>
+    <sys:Double x:Key="MTabBitTitleFS">25</sys:Double>
+    <sys:Double x:Key="MInputTitleFS">20</sys:Double>
+    <sys:Double x:Key="MButtonFS">20</sys:Double>
+    <sys:Double x:Key="MButtonWidth">200</sys:Double>
+    <sys:Double x:Key="MButtonHeigth">50</sys:Double>
+    <sys:Double x:Key="MGroupBoxFS">25</sys:Double>
+    <sys:Double x:Key="MGroupTitleFS">22</sys:Double>
+    <sys:Double x:Key="MGroupContentFS">23</sys:Double>
+    <sys:Double x:Key="MLightFS">18</sys:Double>
+    
+    <Style x:Key="MBorder_LT" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="1,1,0,0" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    </Style>
+    
+    <Style x:Key="MBorder_LTR" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    </Style>
+    
+    <Style x:Key="MBorder_LTB" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    </Style>
+    
+    <Style x:Key="MBorder_LTRB" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    </Style>
+    
+</ResourceDictionary>
