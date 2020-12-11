@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:hc="https://handyorg.github.io/handycontrol" 
         WindowStartupLocation="CenterScreen" 
-        BorderThickness="0"
+        BorderThickness="0" Icon="/Resources/apps_dconf.png"
         xmlns:local="clr-namespace:wcs"
         mc:Ignorable="d" Title="储砖调度系统"
         ResizeMode="CanResizeWithGrip"
@@ -32,7 +32,7 @@
                             <RowDefinition />
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Source="/Resources/Img/KEDA.png" Margin="5" VerticalAlignment="Center"/>
+                        <Image Grid.Row="0" Source="/Resources/keda_blue.png" Margin="5" VerticalAlignment="Center"/>
                         <TextBlock Grid.Row="1" Text="储 砖 调 度 系 统" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                    FontSize="18"/>
                     </Grid>

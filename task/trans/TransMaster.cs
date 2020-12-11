@@ -339,11 +339,12 @@ namespace task.trans
 
                                 if (!PubMaster.Track.IsTrackFull(trans.give_track_id))
                                 {
+                                    ushort fullqty = PubMaster.Area.GetAreaFullQty(trans.area_id);
                                     //当轨道满砖数量库存时就将轨道设为满砖轨道
-                                    if (PubMaster.Goods.GetTrackCount(trans.give_track_id) == PubMaster.Area.GetAreaFullQty(trans.area_id))
+                                    if (PubMaster.Goods.GetTrackCount(trans.give_track_id) == fullqty)
                                     {
                                         PubMaster.Track.UpdateStockStatus(trans.give_track_id, TrackStockStatusE.满砖, "设定最大库存数,自动满砖");
-                                        PubMaster.Track.AddTrackLog((ushort)trans.area_id, trans.carrier_id, trans.give_track_id, TrackLogE.满轨道, "满足最大库存数");
+                                        PubMaster.Track.AddTrackLog(fullqty, trans.carrier_id, trans.give_track_id, TrackLogE.满轨道, "满足最大库存数");
                                         return;
                                     }
                                 }
