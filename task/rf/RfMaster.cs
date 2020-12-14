@@ -442,6 +442,25 @@ namespace task.rf
                         UpdateTileTrack(msg);
                         break;
                     #endregion
+
+                    #region[砖机转产]
+
+                    case FunTag.QueryTileShift:
+                        //查询砖机品种，转产状态
+                        QueryTileShift(msg);
+                        break;
+
+                    case FunTag.UpdatePreGood:
+                        //更新预设品种
+                        UpdatePreGood(msg);
+
+                        break;
+                    case FunTag.ShiftTileGood:
+                        //转品种
+                        ShiftTileGood(msg);
+
+                        break;
+                    #endregion
                 }
 
                 _mLog?.Cmd(true, msg?.MEID + " : " + msg?.Pack?.Function);
@@ -793,6 +812,7 @@ namespace task.rf
                 mDicPack.AddEnum(typeof(DevLifterLoadE), "砖机货物状态", nameof(DevLifterLoadE));
                 mDicPack.AddEnum(typeof(DevLifterInvolE), "砖机货物状态", nameof(DevLifterInvolE));
                 mDicPack.AddEnum(typeof(DevLifterCmdTypeE), "砖机指令", nameof(DevLifterCmdTypeE));
+                mDicPack.AddEnum(typeof(TileShiftStatusE), "转产状态", nameof(TileShiftStatusE));
 
                 #endregion
 
@@ -1397,6 +1417,63 @@ namespace task.rf
         }
         #endregion
 
+        #region[砖机转规格]
+
+        //查询砖机品种，转产状态
+        private void QueryTileShift(RfMsgMod msg) 
+        {
+            RfTileShiftPack pack = new RfTileShiftPack();
+            foreach (TileLifterTask item in PubTask.TileLifter.GetDevTileLifters())
+            {
+                pack.AddTileShift(item.Device, item.TileShiftStatus);
+            }
+
+            if(pack.TileShift != null)
+            {
+                SendSucc2Rf(msg.MEID, FunTag.QueryTileShift, JsonTool.Serialize(pack));
+            }
+        }
+
+
+        //更新预设品种
+        private void UpdatePreGood(RfMsgMod msg) 
+        {
+            if (msg.IsPackHaveData())
+            {
+                RfTileGoodPack pack = JsonTool.Deserialize<RfTileGoodPack>(msg.Pack.Data);
+                if (pack != null)
+                {
+                    if(PubMaster.Device.UpdateTilePreGood(pack.tile_id, pack.good_id, pack.pregood_id, out string result))
+                    {
+                        SendSucc2Rf(msg.MEID, FunTag.UpdatePreGood, "ok");
+                    }
+                    else
+                    {
+                        SendFail2Rf(msg.MEID, FunTag.UpdatePreGood, result);
+                    }
+                }
+            }
+        }
+        
+        //转品种
+        private void ShiftTileGood(RfMsgMod msg) 
+        {
+            RfTileGoodPack pack = JsonTool.Deserialize<RfTileGoodPack>(msg.Pack.Data);
+            if (pack != null)
+            {
+                if (PubMaster.Device.UpdateShiftTileGood(pack.tile_id, pack.good_id, out string result))
+                {
+                    //发送砖机转产信号
+                    SendSucc2Rf(msg.MEID, FunTag.ShiftTileGood, "ok");
+                }
+                else
+                {
+                    SendFail2Rf(msg.MEID, FunTag.ShiftTileGood, result);
+                }
+            }
+        }
+                    
+        #endregion
         #endregion
     }
 }

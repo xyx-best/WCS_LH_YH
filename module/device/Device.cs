@@ -24,6 +24,8 @@ namespace module.device
         public ushort area { set; get; }
         public bool do_work { set; get; }//是否作业
         public byte work_type { set; get; }//作业类型
+        public uint old_goodid { set; get; }//上一个品种
+        public uint pre_goodid { set; get; }//预设品种
 
         public DevWorkTypeE WorkType
         {

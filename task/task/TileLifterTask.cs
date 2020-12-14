@@ -91,6 +91,9 @@ namespace task.task
             get => IsNeed_1 || IsNeed_2;
         }
 
+
+        public TileShiftStatusE TileShiftStatus { set; get; }
+
         public bool StopOneTime { set; get; }
 
         #endregion
@@ -134,7 +137,6 @@ namespace task.task
         #region[构造/启动/停止]
         public TileLifterTcp DevTcp { set; get; }
         public DevTileLifter DevStatus { set; get; }
-
         public TileLifterTask()
         {
             DevStatus = new DevTileLifter();

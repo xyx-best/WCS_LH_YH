@@ -211,5 +211,48 @@ namespace resource.device
 
         #endregion
 
+
+
+        #region[砖机转产]
+
+        public bool UpdateTilePreGood(uint tileid, uint nowgoodid, uint pregoodid, out string result)
+        {
+            Device device = GetDevice(tileid);
+            if (device != null)
+            {
+                if(device.goods_id != nowgoodid)
+                {
+                    result = "请刷新设备信息！";
+                    return false;
+                }
+
+                device.pre_goodid = pregoodid;
+                PubMaster.Mod.DevSql.EditeTileGood(device);
+            }
+            result = "找不到设备信息！";
+            return false;
+        }
+
+        public bool UpdateShiftTileGood(uint tileid, uint nowgoodid, out string result)
+        {
+            Device device = GetDevice(tileid);
+            if (device != null)
+            {
+                if(device.goods_id != nowgoodid)
+                {
+                    result = "请刷新设备信息！";
+                    return false;
+                }
+                device.old_goodid = device.goods_id;
+                device.goods_id = device.pre_goodid;
+                device.pre_goodid = 0;
+
+                PubMaster.Mod.DevSql.EditeTileGood(device);
+            }
+            result = "找不到设备信息！";
+            return false;
+        }
+
+        #endregion
     }
 }

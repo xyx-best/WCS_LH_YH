@@ -24,4 +24,10 @@
         介入1,
         介入2,
     }
+
+    public enum TileShiftStatusE
+    {
+        完成,
+        转产中
+    }
 }
