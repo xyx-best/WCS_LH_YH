@@ -9,7 +9,7 @@ namespace module.rf.device
 
         public void AddDevs(List<Device> list)
         {
-            if (DevList == null)
+            if(DevList == null)
             {
                 DevList = new List<Device>();
             }

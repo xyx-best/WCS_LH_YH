@@ -111,7 +111,7 @@ namespace task.device
                                 task.DoQuery();
                             }
 
-                            if (_IsSetting && _FerryPosSetList.Find(c => c.FerryId == task.ID) is FerryPosSet set)
+                            if (task.IsEnable && _IsSetting && _FerryPosSetList.Find(c => c.FerryId == task.ID) is FerryPosSet set)
                             {
                                 Thread.Sleep(1000);
                                 task.DoSiteQuery(set.QueryPos);
@@ -122,16 +122,40 @@ namespace task.device
                                 //上砖测轨道ID 或 下砖测轨道ID
                                 if (task.UpTrackId == PubMaster.Track.GetTrackId(task.DevStatus.TargetSite) && task.IsUpLight)
                                 {
-                                    Thread.Sleep(1000);
+                                    Thread.Sleep(500);
                                     task.DoStop();
                                 }
 
                                 if (task.DownTrackId == PubMaster.Track.GetTrackId(task.DevStatus.TargetSite) && task.IsDownLight)
                                 {
-                                    Thread.Sleep(1000);
+                                    Thread.Sleep(500);
                                     task.DoStop();
                                 }
                             }
+
+                            #region 上砖待命点
+
+                            if (task.Type == DeviceTypeE.上摆渡 && task.Status == DevFerryStatusE.停止 &&
+                                task.DevStatus.CurrentTask == DevFerryTaskE.终止 && task.DevStatus.TargetSite == 0)
+                            {
+                                // 当上砖机都有货，摆渡车 空车无锁定 时，移至待命点（原点 12&13 之间）
+                                if (task.IsFerryFree() &&
+                                    !PubTask.Trans.IsExistsTask(task.AreaId, TransTypeE.出库) &&
+                                    !PubTask.TileLifter.IsAnyoneNeeds(task.AreaId, DeviceTypeE.上砖机))
+                                {
+                                    short trackOrder = PubMaster.Track.GetTrack(task.DownTrackId)?.order ?? 0;
+                                    if (trackOrder != 0)
+                                    {
+                                        // 513
+                                        if (trackOrder < 12 || trackOrder > 14)
+                                        {
+                                            task.DoLocate(513);
+                                        }
+                                    }
+                                }
+                            }
+
+                            #endregion
                         }
                     }
                     finally { Monitor.Exit(_obj); }
@@ -669,6 +693,13 @@ namespace task.device
                         || ((task.DevStatus.CurrentTask == DevFerryTaskE.终止 || task.DevStatus.CurrentTask == DevFerryTaskE.定位)
                             && (task.DevStatus.FinishTask == DevFerryTaskE.未知 || task.DevStatus.FinishTask == DevFerryTaskE.定位))))
                 {
+                    if (task.DevStatus.TargetSite != 0 && PubMaster.Track.GetTrackId(task.DevStatus.TargetSite) != to_track_id)
+                    {
+                        Thread.Sleep(500);
+                        task.DoStop();
+                        return false;
+                    }
+
                     //上砖测轨道ID 或 下砖测轨道ID
                     if (task.UpTrackId == to_track_id && task.IsUpLight)
                     {
@@ -678,7 +709,7 @@ namespace task.device
                         }
                         else
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
                             task.DoStop();
                         }
 
@@ -693,7 +724,7 @@ namespace task.device
                         }
                         else
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
                             task.DoStop();
                         }
 

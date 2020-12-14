@@ -611,7 +611,7 @@ namespace task.device
                     #region[介入]
                     if (!task.IsInvo_1)
                     {
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         task.Do1Invo(DevLifterInvolE.介入);
                         return;
                     }
@@ -1369,6 +1369,11 @@ namespace task.device
             }
             finally { Monitor.Exit(_obj); }
             return false;
+        }
+
+        internal bool IsAnyoneNeeds(uint area, DeviceTypeE dt)
+        {
+            return DevList.Exists(c=>c.AreaId == area && c.Type == dt && (c.IsNeed_1 || c.IsNeed_2));
         }
 
         #endregion

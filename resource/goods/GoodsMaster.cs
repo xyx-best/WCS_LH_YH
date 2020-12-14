@@ -220,6 +220,12 @@ namespace resource.goods
             return stockid != 0;
         }
 
+        public bool HaveStockInTrack(uint trackid, out uint stockid)
+        {
+            stockid = StockList.Find(c => c.track_id == trackid)?.id ?? 0;
+            return stockid != 0;
+        }
+
         public bool ExistStockInTrack(uint trackid)
         {
             return StockList.Exists(c => c.track_id == trackid);

@@ -1,8 +1,9 @@
 ﻿using module.area;
 using module.tiletrack;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
-namespace module.rf.tiletrack
+namespace module.rf
 {
     public class RfTileTrackPack
     {
@@ -13,7 +14,7 @@ namespace module.rf.tiletrack
 
         public void SetTrackList(List<TileTrack> list)
         {
-            if (TrackList == null)
+            if(TrackList== null)
             {
                 TrackList = new List<TileTrack>();
             }
@@ -23,7 +24,7 @@ namespace module.rf.tiletrack
 
         public void SetAreaTrackList(List<AreaDeviceTrack> list)
         {
-            if (AreaTrackList == null)
+            if(AreaTrackList == null)
             {
                 AreaTrackList = new List<AreaDeviceTrack>();
             }

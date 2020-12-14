@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddManualTrans" xml:space="preserve">
+    <value>添加任务</value>
+  </data>
   <data name="Area" xml:space="preserve">
     <value>区域</value>
   </data>
@@ -141,14 +144,17 @@
   <data name="Home" xml:space="preserve">
     <value>主页</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>菜单</value>
+  </data>
   <data name="RfClient" xml:space="preserve">
     <value>平板</value>
   </data>
   <data name="Stock" xml:space="preserve">
-    <value>库存</value>
+    <value>轨道库存</value>
   </data>
   <data name="StockSum" xml:space="preserve">
-    <value>统计</value>
+    <value>库存</value>
   </data>
   <data name="TestGood" xml:space="preserve">
     <value>测可入砖</value>
@@ -161,6 +167,9 @@
   </data>
   <data name="Track" xml:space="preserve">
     <value>轨道</value>
+  </data>
+  <data name="TrackAllocate" xml:space="preserve">
+    <value>轨道分配</value>
   </data>
   <data name="TrackLog" xml:space="preserve">
     <value>空满轨道</value>

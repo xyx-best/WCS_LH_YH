@@ -14,7 +14,7 @@ namespace wcs.ViewModel
     {
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default); 
             SimpleIoc.Default.Register<DataService>();
 
             SimpleIoc.Default.Register<MainViewModel>();
@@ -54,13 +54,22 @@ namespace wcs.ViewModel
             SimpleIoc.Default.Register<TrackLogViewModel>();
             SimpleIoc.Default.Register<TileTrackViewModel>();
 
+            SimpleIoc.Default.Register<MenuViewModel>();
+            SimpleIoc.Default.Register<UserViewModel>();
+            SimpleIoc.Default.Register<ModuleSelectViewModel>();
+            SimpleIoc.Default.Register<MenuSelectViewModel>();
+            SimpleIoc.Default.Register<ToolBarViewModel>();
+            SimpleIoc.Default.Register<UserEditViewModel>();
+            //SimpleIoc.Default.Register<DeviceEditViewModel>();
+            //SimpleIoc.Default.Register<DeviceViewModel>();
+
             PubMaster.Init();
             PubTask.Init();
         }
 
         public static ViewModelLocator Instance => new Lazy<ViewModelLocator>(() => Application.Current.TryFindResource("Locator") as ViewModelLocator).Value;
 
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MainViewModel Main =>ServiceLocator.Current.GetInstance<MainViewModel>();
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
         public WaringViewModel Warn => ServiceLocator.Current.GetInstance<WaringViewModel>();
         public WarnLogViewModel WarnLog => ServiceLocator.Current.GetInstance<WarnLogViewModel>();
@@ -75,6 +84,8 @@ namespace wcs.ViewModel
 
         #region[设备/硬件]
         public AreaViewModel Area => ServiceLocator.Current.GetInstance<AreaViewModel>();
+        //public DeviceViewModel Device => ServiceLocator.Current.GetInstance<DeviceViewModel>();
+        //public DeviceEditViewModel DevEdit => ServiceLocator.Current.GetInstance<DeviceEditViewModel>();
         public AreaSwitchViewModel AreaSwitch => ServiceLocator.Current.GetInstance<AreaSwitchViewModel>();
         public TileLifterViewModel TileLifter => ServiceLocator.Current.GetInstance<TileLifterViewModel>();
         public FerryViewModel Ferry => ServiceLocator.Current.GetInstance<FerryViewModel>();
@@ -105,6 +116,16 @@ namespace wcs.ViewModel
 
         #endregion
 
+        #region[菜单-角色-用户]
+
+        public MenuViewModel Menu => ServiceLocator.Current.GetInstance<MenuViewModel>();
+        public UserViewModel User => ServiceLocator.Current.GetInstance<UserViewModel>();
+        public ModuleSelectViewModel ModuleSelect => ServiceLocator.Current.GetInstance<ModuleSelectViewModel>();
+        public MenuSelectViewModel MenuSelect => ServiceLocator.Current.GetInstance<MenuSelectViewModel>();
+        public ToolBarViewModel ToolBar => ServiceLocator.Current.GetInstance<ToolBarViewModel>();
+        public UserEditViewModel UserEdit => ServiceLocator.Current.GetInstance<UserEditViewModel>();
+
+        #endregion
 
         public static void Cleanup()
         {
