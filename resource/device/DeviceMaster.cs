@@ -228,6 +228,8 @@ namespace resource.device
 
                 device.pre_goodid = pregoodid;
                 PubMaster.Mod.DevSql.EditeTileGood(device);
+                result = "";
+                return true;
             }
             result = "找不到设备信息！";
             return false;
@@ -248,6 +250,8 @@ namespace resource.device
                 device.pre_goodid = 0;
 
                 PubMaster.Mod.DevSql.EditeTileGood(device);
+                result = "";
+                return true;
             }
             result = "找不到设备信息！";
             return false;
