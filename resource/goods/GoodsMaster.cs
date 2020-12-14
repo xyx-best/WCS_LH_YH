@@ -1258,6 +1258,5 @@ namespace resource.goods
         }
 
         #endregion
-
     }
 }
