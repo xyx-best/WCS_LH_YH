@@ -96,7 +96,7 @@ namespace resource.module.modulesql
         {
             string sql = "UPDATE `device` set `goods_id` = '{0}', `old_goodid` = '{1}'," +
                    " `pre_goodid` = '{2}'  where id = '{3}'";
-            sql = string.Format(sql, dev.goods_id, dev.old_goodid, dev.pre_goodid, dev.id);
+            sql = string.Format(sql, GetIntOrNull(dev.goods_id), dev.old_goodid, dev.pre_goodid, dev.id);
             int row = mSql.ExcuteSql(sql);
             return row >= 1;
         }

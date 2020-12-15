@@ -1099,7 +1099,34 @@ namespace task.rf
         private void GetTrack(RfMsgMod msg)
         {
             TrackPack pack = new TrackPack();
-            pack.AddTrackList(PubMaster.Track.GetTrackList());
+            if (msg.IsPackHaveData())
+            {
+                List<TrackTypeE> tlist = new List<TrackTypeE>();
+                if (msg.Pack.Data.Contains(":"))
+                {
+                    string[] types = msg.Pack.Data.Split(':');
+                    foreach (string type in types)
+                    {
+                        if (byte.TryParse(type, out byte btype))
+                        {
+                            tlist.Add((TrackTypeE)btype);
+                        }
+                    }
+                }
+                else
+                {
+                    if (byte.TryParse(msg.Pack.Data, out byte btype))
+                    {
+                        tlist.Add((TrackTypeE)btype);
+                    }
+                }
+
+                pack.AddTrackList(PubMaster.Track.GetTrackList(tlist));
+            }
+            else
+            {
+                pack.AddTrackList(PubMaster.Track.GetTrackList());
+            }
 
             SendSucc2Rf(msg.MEID, FunTag.QueryTrack, JsonTool.Serialize(pack));
         }
